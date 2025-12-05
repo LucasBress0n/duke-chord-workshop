@@ -63,9 +63,11 @@ API calls are abstracted through the state managers, which handle data fetching 
 
 ### 1. Clone the Repository
 
+First, clone the project repository to your local machine:
+
 ```bash
-git clone <repository-url>
-cd duke_and_chord
+git clone https://github.com/your-username/duke-chord-workshop.git # Replace with your actual repository URL
+cd duke-chord-workshop
 ```
 
 ### 2. Install Dependencies
@@ -84,30 +86,40 @@ npm i -g json-server@0.17.4
 
 This global installation allows you to run json-server as a standalone service if needed.
 
-## Running the Application
+## Running the Application (Client)
 
-### Option 1: Using npm start (Recommended)
+The front-end application is a Single Page Application (SPA) that will be served by the custom Node.js server. Once the server is running (see "Running the Server" below), you can access the application in your web browser.
 
-The simplest way to run the application is using the npm start script, which launches the custom server:
+**Access the application at:** `http://localhost:5002` (or the port specified in your `PORT` environment variable).
 
-```bash
-npm start
-```
+## Running the Server
 
-This will start the server on port 5002 (or the port specified in the PORT environment variable). The server handles both:
-- Static file serving for the front-end application
-- API routing through json-server
+There are two primary ways to run the server, which serves both the static front-end files and the mock REST API.
 
-Access the application at: `http://localhost:5002`
+### Option 1: Using `npm start` (Recommended for Full Application)
 
-### Option 2: Using json-server Directly
+This is the simplest and recommended method, as it starts both the static file server and the `json-server` for the API.
 
-Alternatively, you can run json-server directly with the database file:
+1.  **Open your terminal** in the project's root directory.
+2.  **Execute the start script:**
+    ```bash
+    npm start
+    ```
+3.  This command will:
+    *   Start a Node.js server (typically on port `5002` by default).
+    *   Serve the `src/index.html` and all associated front-end assets (JavaScript, CSS, images).
+    *   Internally run `json-server` to handle API requests using `api/database.json`.
 
-```bash
-json-server --watch api/database.json --port 5002
-```
+### Option 2: Running `json-server` Directly (API Only)
 
-Note: This method only provides API functionality. You'll need a separate static file server for the front-end.
+If you only need the API functionality and plan to serve the front-end separately (e.g., with a different static file server), you can run `json-server` directly.
+
+1.  **Open your terminal** in the project's root directory.
+2.  **Execute `json-server`:**
+    ```bash
+    json-server --watch api/database.json --port 5002
+    ```
+3.  This will start the API server on port `5002`, watching `api/database.json` for changes.
+4.  **Note**: This method **does not** serve the front-end application. You would need a separate process to serve `src/index.html` and its assets.
 
 
